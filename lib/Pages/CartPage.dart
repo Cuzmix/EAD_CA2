@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 
 class ShoppingCart extends StatefulWidget{
   @override
-  ShoppingCartState createState()=>ShoppingCartSate();
+  State createState()=>ShoppingCartSate();
 
 }
 
