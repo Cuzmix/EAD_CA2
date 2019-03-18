@@ -81,12 +81,14 @@ class shopingApp extends StatelessWidget {
                     Icons.shopping_basket,
                     color: Colors.white,
                   ),
-                  onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => new ShoppingCart()));
-                  })
+                  onPressed: () => Navigator.of(context).push(
+                      new MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              new ShoppingCart())))
             ],
           ),
 
-          body: centeredTexWidget(),
+          body: centeredTexWidget(), //calling the page to load
         ));
   }
 }
