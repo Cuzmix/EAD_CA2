@@ -18,7 +18,6 @@ class ShoppingCartSate extends State<ShoppingCart>{
             "Shopping App", style: new TextStyle(fontStyle: FontStyle.italic),
           ),
         ),
-
         actions: <Widget>[
           new IconButton(icon: Icon(Icons.shopping_basket,color: Colors.white,)
               , onPressed: null)

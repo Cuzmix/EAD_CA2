@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shopping_app_v1/Pages/CartPage.dart';
 
 void main() => runApp(shopingApp());
 
 class shopingApp extends StatelessWidget {
-  shopingApp({Key key}): super(key:key);
+  shopingApp({Key key}) : super(key: key);
   //responsible for rendering the object in the UI
 
   @override
@@ -18,7 +19,6 @@ class shopingApp extends StatelessWidget {
           // this provides the bases such as white screen the nav bar etc..
 
 //---------------------
-
           drawer: Drawer(
             // Add a ListView to the drawer. This ensures the user can scroll
             // through the options in the Drawer if there isn't enough vertical
@@ -31,7 +31,7 @@ class shopingApp extends StatelessWidget {
                   accountName: new Text("Manny"),
                   accountEmail: new Text("Manny@Gmail.com"),
                   currentAccountPicture: new GestureDetector(
-                    onTap: ()=> print("This the main current"),
+                    onTap: () => print("This the main current"),
                     child: new CircleAvatar(
                       backgroundImage: new NetworkImage(
                           "https://dumielauxepices.net/sites/default/files/nintendo-clipart-mario-mushroom-697789-1653313.png"),
@@ -61,25 +61,29 @@ class shopingApp extends StatelessWidget {
                     // ...
                     // Then close the drawer
                     Navigator.pop(context);
-                  } ,
+                  },
                 ),
               ],
             ),
           ),
 
-
 //-------------------------------------
           appBar: new AppBar(
             title: new Center(
               child: new Text(
-                "Shopping App", style: new TextStyle(fontStyle: FontStyle.italic),
+                "Shopping App",
+                style: new TextStyle(fontStyle: FontStyle.italic),
               ),
             ),
-
-          actions: <Widget>[
-            new IconButton(icon: Icon(Icons.shopping_basket,color: Colors.white,)
-                , onPressed: null)
-          ],
+            actions: <Widget>[
+              new IconButton(
+                  icon: Icon(
+                    Icons.shopping_basket,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => new ShoppingCart()));
+                  })
+            ],
           ),
 
           body: centeredTexWidget(),
@@ -90,7 +94,6 @@ class shopingApp extends StatelessWidget {
 class centeredTexWidget extends StatelessWidget {
   @override
   //QuantityWidget createState()=> QuantityWidget();
-
 
   Widget build(BuildContext context) {
     return new ListView.builder(
@@ -105,7 +108,7 @@ class centeredTexWidget extends StatelessWidget {
               new Container(height: 7.5),
               new Text("Bottle of milk"),
               new Text("Qty : "),
-               new QuantityWidget(),
+              new QuantityWidget(),
               new AddtoCartButton(),
               new Divider(
                 color: Colors.red,
@@ -134,7 +137,6 @@ class AddtoCartButton extends StatelessWidget {
 
 //Qty increment
 class QuantityWidget extends StatelessWidget {
-
   int _n = 0;
 
   void add() {
@@ -150,7 +152,6 @@ class QuantityWidget extends StatelessWidget {
     //   });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return new Row(
@@ -158,18 +159,19 @@ class QuantityWidget extends StatelessWidget {
       children: <Widget>[
         new FloatingActionButton(
           onPressed: add,
-          child: new Icon(Icons.add, color: Colors.black,),
-          backgroundColor: Colors.white,),
-
-        new Text('$_n',
-            style: new TextStyle(fontSize: 60.0)),
-
+          child: new Icon(
+            Icons.add,
+            color: Colors.black,
+          ),
+          backgroundColor: Colors.white,
+        ),
+        new Text('$_n', style: new TextStyle(fontSize: 60.0)),
         new FloatingActionButton(
           onPressed: minus,
-          child: new Icon(
-              const IconData(0xe15b, fontFamily: 'MaterialIcons'),
+          child: new Icon(const IconData(0xe15b, fontFamily: 'MaterialIcons'),
               color: Colors.black),
-          backgroundColor: Colors.white,),
+          backgroundColor: Colors.white,
+        ),
       ],
     );
   }
