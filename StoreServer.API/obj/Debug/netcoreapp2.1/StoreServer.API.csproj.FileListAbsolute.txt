@@ -1,0 +1,14 @@
+C:\Users\Jehan\Desktop\EAD_CA2_PROJ\StoreServer.API\obj\Debug\netcoreapp2.1\StoreServer.API.csprojAssemblyReference.cache
+C:\Users\Jehan\Desktop\EAD_CA2_PROJ\StoreServer.API\obj\Debug\netcoreapp2.1\StoreServer.API.csproj.CoreCompileInputs.cache
+C:\Users\Jehan\Desktop\EAD_CA2_PROJ\StoreServer.API\obj\Debug\netcoreapp2.1\StoreServer.API.RazorAssemblyInfo.cache
+C:\Users\Jehan\Desktop\EAD_CA2_PROJ\StoreServer.API\obj\Debug\netcoreapp2.1\StoreServer.API.RazorAssemblyInfo.cs
+C:\Users\Jehan\Desktop\EAD_CA2_PROJ\StoreServer.API\obj\Debug\netcoreapp2.1\StoreServer.API.AssemblyInfoInputs.cache
+C:\Users\Jehan\Desktop\EAD_CA2_PROJ\StoreServer.API\obj\Debug\netcoreapp2.1\StoreServer.API.AssemblyInfo.cs
+C:\Users\Jehan\Desktop\EAD_CA2_PROJ\StoreServer.API\bin\Debug\netcoreapp2.1\StoreServer.API.deps.json
+C:\Users\Jehan\Desktop\EAD_CA2_PROJ\StoreServer.API\bin\Debug\netcoreapp2.1\StoreServer.API.runtimeconfig.json
+C:\Users\Jehan\Desktop\EAD_CA2_PROJ\StoreServer.API\bin\Debug\netcoreapp2.1\StoreServer.API.runtimeconfig.dev.json
+C:\Users\Jehan\Desktop\EAD_CA2_PROJ\StoreServer.API\bin\Debug\netcoreapp2.1\StoreServer.API.dll
+C:\Users\Jehan\Desktop\EAD_CA2_PROJ\StoreServer.API\bin\Debug\netcoreapp2.1\StoreServer.API.pdb
+C:\Users\Jehan\Desktop\EAD_CA2_PROJ\StoreServer.API\obj\Debug\netcoreapp2.1\StoreServer.API.RazorTargetAssemblyInfo.cache
+C:\Users\Jehan\Desktop\EAD_CA2_PROJ\StoreServer.API\obj\Debug\netcoreapp2.1\StoreServer.API.dll
+C:\Users\Jehan\Desktop\EAD_CA2_PROJ\StoreServer.API\obj\Debug\netcoreapp2.1\StoreServer.API.pdb
