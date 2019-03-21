@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:shopping_app_v1/Pages/CartPage.dart';
+import 'package:shopping_app_v1/Pages/ProductsPage.dart';
 
 void main() {
   runApp(new MaterialApp(
