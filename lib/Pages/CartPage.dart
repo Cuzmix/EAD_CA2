@@ -17,16 +17,17 @@ class ShoppingCartSate extends State<ShoppingCart> {
 
   Future<String> getData() async {
     http.Response response = await http.get(
-        Uri.encodeFull("https://jsonplaceholder.typicode.com/posts"),
+        Uri.encodeFull("http://10.0.2.2:5000/api/values/getProducts"),
         headers: {"Accept": "applicatin/json"});
 
+    print(response.body);
 
     this.setState(() {
       dataList = json.decode(response.body);
 
 
     });
-    print(dataList[1]["title"]);
+
     return "success!";
   }
 
@@ -51,7 +52,7 @@ class ShoppingCartSate extends State<ShoppingCart> {
               itemCount: dataList == null ? 0 : dataList.length,
               itemBuilder: (BuildContext context, int index) {
                 return new Card(
-                  child: new Text(dataList[index]["body"]),
+                  child: new Text(dataList[index]["name"]),
                 );
               }),
         ),

@@ -14,6 +14,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.Data.Sqlite;
 using StoreServer.API.Data;
 
+using Swashbuckle.AspNetCore.Swagger;
+
+
 namespace StoreServer.API
 {
     public class Startup
@@ -21,6 +24,8 @@ namespace StoreServer.API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+
         }
 
         public IConfiguration Configuration { get; }
@@ -28,8 +33,17 @@ namespace StoreServer.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+        
+
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "nameOfTitle", Version = "v1" });
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +57,10 @@ namespace StoreServer.API
             {
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "nameOfNameSpace V1"));
+
 
             app.UseHttpsRedirection();
             app.UseMvc();
