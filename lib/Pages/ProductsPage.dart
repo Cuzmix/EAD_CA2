@@ -23,8 +23,7 @@ class ShoppingCartSate extends State<ShoppingCart> {
     print(response.body);
 
     List collection = json.decode(response.body);
-    List<Product> _products =
-        collection.map((json) => Product.fromJson(json)).toList();
+    List<Product> _products = collection.map((json) => Product.fromJson(json)).toList();
 
     this.setState(() {
       products = _products;
@@ -41,6 +40,12 @@ class ShoppingCartSate extends State<ShoppingCart> {
 
   @override
   Widget build(BuildContext context) {
+    Product product1;
+    int size = products.length;
+
+
+
+
     return MaterialApp(
         //title: "Test1234",
         home: new Scaffold(
@@ -51,19 +56,25 @@ class ShoppingCartSate extends State<ShoppingCart> {
               style: new TextStyle(fontStyle: FontStyle.italic)),
         ),
       ),
-      body: ListView.separated(
-          itemCount: products.length,
-          separatorBuilder: (context, index) => Divider(),
-          itemBuilder: (BuildContext context, int i) {
-            Product product1 = products[i];
-            return ListTile(
-              title: new Text(product1.name+" "+product1.price.toString()),
 
-              leading: CircleAvatar(
-                child: Text("MK"),
-              ),
-            );
-          }),
-    ));
+      body: new GridView.count(
+
+        crossAxisCount: 2,
+
+        children: new List<Widget>.generate(2, (i) {
+          Product product1 = products[i];
+          return new GridTile(
+            child: new Card(
+                color: Colors.blue.shade200,
+                child: new Center(
+                  child: new Text('Product Name '+product1.name +"\nProduct Price : €"+product1.price.toString()+"\nQuantity: "+product1.quantity.toString()),
+                )),
+          );
+        },
+        ),
+      ),
+
+        ));
   }
 }
+

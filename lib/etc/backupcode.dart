@@ -210,4 +210,28 @@ new GridView.count(
           ),
         ),
 
+
+
+
+
+
+
+
+ListView.separated(
+          itemCount: products.length,
+          separatorBuilder: (context, index) => Divider(),
+          itemBuilder: (BuildContext context, int i) {
+            Product product1 = products[i];
+            return ListTile(
+              title: new Text(product1.name+" "+product1.price.toString()),
+
+              leading: CircleAvatar(
+                child: Text("MK"),
+              ),
+            );
+          }),
+
+
+
+
 */
