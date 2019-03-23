@@ -40,12 +40,6 @@ class ShoppingCartSate extends State<ShoppingCart> {
 
   @override
   Widget build(BuildContext context) {
-    Product product1;
-    int size = products.length;
-
-
-
-
     return MaterialApp(
         //title: "Test1234",
         home: new Scaffold(
@@ -61,7 +55,7 @@ class ShoppingCartSate extends State<ShoppingCart> {
 
         crossAxisCount: 2,
 
-        children: new List<Widget>.generate(2, (i) {
+        children: new List<Widget>.generate(products.length, (i) {
           Product product1 = products[i];
           return new GridTile(
             child: new Card(
