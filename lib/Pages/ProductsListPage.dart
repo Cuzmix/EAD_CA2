@@ -6,12 +6,12 @@ import 'package:http/http.dart' as http;
 import 'package:shopping_app_v1/Model/Product.dart';
 import 'package:flutter/src/material/list_tile.dart';
 
-class ShoppingCart extends StatefulWidget {
+class ProductList extends StatefulWidget {
   @override
-  State createState() => ShoppingCartSate();
+  State createState() => ProductListState();
 }
 
-class ShoppingCartSate extends State<ShoppingCart> {
+class ProductListState extends State<ProductList> {
   //List <Product> productList;
   var products = const [];
 
@@ -36,6 +36,7 @@ class ShoppingCartSate extends State<ShoppingCart> {
   @override
   void initState() {
     this.getData();
+
   }
 
   @override
@@ -54,15 +55,18 @@ class ShoppingCartSate extends State<ShoppingCart> {
       body: new GridView.count(
 
         crossAxisCount: 2,
-
         children: new List<Widget>.generate(products.length, (i) {
           Product product1 = products[i];
           return new GridTile(
             child: new Card(
-                color: Colors.blue.shade200,
+                color: Colors.white,
                 child: new Center(
-                  child: new Text('Product Name '+product1.name +"\nProduct Price : €"+product1.price.toString()+"\nQuantity: "+product1.quantity.toString()),
-                )),
+                  child: new Text("Product Name "+product1.name +"\nProduct Price : "
+                      "€"+product1.price.toString()+"\nQuantity: "+product1.quantity.toString()),
+
+                ),
+
+            ),
           );
         },
         ),
