@@ -60,10 +60,25 @@ class ProductListState extends State<ProductList> {
           return new GridTile(
             child: new Card(
                 color: Colors.white,
-                child: new Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+
+
+
+                 new Container(
                   child: new Text("Product Name "+product1.name +"\nProduct Price : "
                       "€"+product1.price.toString()+"\nQuantity: "+product1.quantity.toString()),
 
+                ),
+                    new Container(
+                      child: new OutlineButton(
+                            child: new Text("Add to Cart"),
+                            onPressed: null,
+                            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+                        )
+                    )
+          ],
                 ),
 
             ),
