@@ -17,4 +17,16 @@ class Product {
         name = json['name'],
         price = json['price'],
         quantity = json['quantity'];
+
+
+  List<Product> tid = new List<Product>();
+
+  void AddtoBasket(Product p){
+    tid.add(p);
+  }
+
+  void Checkout () {
+
+  }
 }
+

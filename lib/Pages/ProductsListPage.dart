@@ -12,13 +12,19 @@ class ProductList extends StatefulWidget {
 }
 
 class ProductListState extends State<ProductList> {
+
+  // controls the text label we use as a search bar
+ // final TextEditingController _filter = new TextEditingController();
+
+  //String _searchText = "";
+
+  //Icon _searchIcon = new Icon(Icons.search);
+
+  //------------------------------------
   //List <Product> productList;
   var products = const [];
-
   Future<String> getData() async {
-    http.Response response = await http.get(
-        Uri.encodeFull("http://10.0.2.2:5000/api/values/getProducts"),
-        headers: {"Accept": "applicatin/json"});
+    http.Response response = await http.get(Uri.encodeFull("http://10.0.2.2:5000/api/values/getProducts"), headers: {"Accept": "applicatin/json"});
 
     print(response.body);
 
@@ -50,6 +56,9 @@ class ProductListState extends State<ProductList> {
           child: new Text("Products Page",
               style: new TextStyle(fontStyle: FontStyle.italic)),
         ),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.search), onPressed: () {})
+        ],
       ),
 
       body: new GridView.count(
@@ -63,8 +72,6 @@ class ProductListState extends State<ProductList> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-
-
 
                  new Container(
                   child: new Text("Product Name "+product1.name +"\nProduct Price : "
