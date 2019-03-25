@@ -13,37 +13,64 @@ class ProductList extends StatefulWidget {
 
 class ProductListState extends State<ProductList> {
 
-  // controls the text label we use as a search bar
- // final TextEditingController _filter = new TextEditingController();
+  void _showErrorDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Error Message"),
+          content: new Text("No Connection"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
-  //String _searchText = "";
 
-  //Icon _searchIcon = new Icon(Icons.search);
-
-  //------------------------------------
-  //List <Product> productList;
   var products = const [];
+
   Future<String> getData() async {
-    http.Response response = await http.get(Uri.encodeFull("http://10.0.2.2:5000/api/values/getProducts"), headers: {"Accept": "applicatin/json"});
+    try {
+      http.Response response = await http.get(
+          Uri.encodeFull("http://10.0.2.2:5000/api/values/getProducts"),
+          headers: {"Accept": "applicatin/json"});
 
-    print(response.body);
+      print(response.body);
 
-    List collection = json.decode(response.body);
-    List<Product> _products = collection.map((json) => Product.fromJson(json)).toList();
+      List collection = json.decode(response.body);
+      List<Product> _products = collection.map((json) => Product.fromJson(json)).toList();
+
 
     this.setState(() {
       products = _products;
     });
 
-    // print(productList[1]);
     return "success!";
+    }catch(e){
+      _showErrorDialog();
+      print (e);
+    }
   }
+
 
   @override
   void initState() {
     this.getData();
-
   }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +89,6 @@ class ProductListState extends State<ProductList> {
       ),
 
       body: new GridView.count(
-
         crossAxisCount: 2,
         children: new List<Widget>.generate(products.length, (i) {
           Product product1 = products[i];
