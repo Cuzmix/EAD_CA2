@@ -34,7 +34,6 @@ namespace StoreServer.API.Controllers
         public async Task<IActionResult>searchProduct(String nameIn)
         {
 
-            //var status = weatherInfomationCollection.Where(p => p.weatherWarning == warningTypeStatus);
            
             var products = await _context.Products.ToListAsync();
           var  results = products.Where(p => p.Name.ToLower() ==nameIn.ToLower());
