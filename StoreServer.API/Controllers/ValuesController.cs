@@ -30,6 +30,29 @@ namespace StoreServer.API.Controllers
             return Ok(products);
         }
 
+        [HttpGet("searchProduct")]
+        public async Task<IActionResult>searchProduct(String nameIn)
+        {
+
+            //var status = weatherInfomationCollection.Where(p => p.weatherWarning == warningTypeStatus);
+           
+            var products = await _context.Products.ToListAsync();
+          var  results = products.Where(p => p.Name.ToLower() ==nameIn.ToLower());
+
+
+
+            if (results !=null)
+            {
+                return Ok(results);
+            }
+            else
+            {
+                return NotFound();
+            }
+            
+        }
+
+
         [HttpPost("purchaseBasket")] //http://localhost:5000/api/values/purchaseBasket/
         public IActionResult PurchaseBasket([FromBody]List<Models.Product> basket)
         {
