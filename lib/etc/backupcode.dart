@@ -272,4 +272,53 @@ ListView.separated(
         ),
       ),
 
+
+      -----------------------------------------------------------------------------------
+      import 'package:flutter/material.dart';
+import 'package:shopping_app_v1/Pages/ProductsListPage.dart';
+import 'package:shopping_app_v1/Model/Product.dart';
+import 'package:flutter/src/widgets/basic.dart';
+
+
+
+
+
+class DataSearch extends SearchDelegate<String>{
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    // action for search bar
+    return [IconButton(icon: Icon(Icons.clear),onPressed: (){})];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    // leadind icon
+    return IconButton(
+      icon: AnimatedIcon(
+        icon: AnimatedIcons.menu_arrow,
+        progress: transitionAnimation,
+      ),
+      onPressed: (){},
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // show results based iof selction
+
+    return null;
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // show suggestions
+
+   // final suggestionList = query.isEmpty?null
+    return null;
+  }
+
+
+
+}
+
 */

@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shopping_app_v1/Model/Product.dart';
 import 'package:flutter/src/material/list_tile.dart';
-
+/*
 class ProductList extends StatefulWidget {
   @override
   State createState() => ProductListSate();
@@ -28,3 +28,4 @@ class ProductListSate extends State<ProductList> {
     );
   }
 }
+*/

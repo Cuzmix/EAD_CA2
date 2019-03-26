@@ -5,11 +5,13 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shopping_app_v1/Model/Product.dart';
 import 'package:flutter/src/material/list_tile.dart';
+import 'package:shopping_app_v1/Util/SearchFuntion.dart';
 
 class ProductList extends StatefulWidget {
   @override
   State createState() => ProductListState();
 }
+
 
 class ProductListState extends State<ProductList> {
 
@@ -36,13 +38,13 @@ class ProductListState extends State<ProductList> {
     );
   }
 
-
   var products = const [];
 
   Future<String> getData() async {
     try {
       http.Response response = await http.get(
-          Uri.encodeFull("http://10.0.2.2:5000/api/values/getProducts"),
+         // Uri.encodeFull("http://10.0.2.2:5000/api/values/getProducts"),
+          Uri.encodeFull("https://ca2-app.azurewebsites.net/api/values/getProducts"),
           headers: {"Accept": "applicatin/json"});
 
       print(response.body);
@@ -62,14 +64,10 @@ class ProductListState extends State<ProductList> {
     }
   }
 
-
   @override
   void initState() {
     this.getData();
   }
-
-
-
 
 
   @override
@@ -84,11 +82,13 @@ class ProductListState extends State<ProductList> {
               style: new TextStyle(fontStyle: FontStyle.italic)),
         ),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: () {})
+          IconButton(icon: Icon(Icons.search), onPressed: () {
+            showSearch(context: context, delegate: CustomSearchDelegate());
+          })
         ],
       ),
 
-      body: new GridView.count(
+    body: new GridView.count(
         crossAxisCount: 2,
         children: new List<Widget>.generate(products.length, (i) {
           Product product1 = products[i];
@@ -123,4 +123,5 @@ class ProductListState extends State<ProductList> {
         ));
   }
 }
+
 
