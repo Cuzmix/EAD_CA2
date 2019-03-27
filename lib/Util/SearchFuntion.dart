@@ -41,7 +41,6 @@ class CustomSearchDelegate extends SearchDelegate {
       );
     } else {
       SendQuery s1 = new SendQuery();
-
       var getD= s1.getData("https://ca2-app.azurewebsites.net/api/values/searchProduct/"+query);
 
     //  print(test.toString());
@@ -49,51 +48,62 @@ class CustomSearchDelegate extends SearchDelegate {
       return new FutureBuilder<List<Product>>(
         future: getD,
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return Container();
-          List<Product> produs = snapshot.data;
-          return new ListView(
-            children: produs.map((produs) => Text(produs.name)).toList(),
-          );
-        },
-      );
+          if (!snapshot.hasData) {
+            return Container(child: Center(
+              child: new Text(
+                "no Items found empty",
+                textAlign: TextAlign.center,
+              ),
+            ));
+          }
+          else if (snapshot.data == null) {
+            return Container(child: Center(
+              child: new Text(
+                "Fecthing",
+                textAlign: TextAlign.center,
+              ),
+            )
+            );
+          } else {
+            List<Product> products = snapshot.data;
+            return new GridView.count(
+              crossAxisCount: 2,
+              children: new List<Widget>.generate(products.length, (i) {
+                Product product1 = products[i];
+                return new GridTile(
+                  child: new Card(
+                    color: Colors.white,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
 
+                        new Container(
+                          child: new Text("Product Name " + product1.name +
+                              "\nProduct Price : "
+                                  "€" + product1.price.toString() +
+                              "\nQuantity: " + product1.quantity.toString()),
 
-/*
-      return new GridView.count(
-
-        crossAxisCount: 2,
-        children: new List<Widget>.generate(products.length, (i) {
-          Product product1 = products[i];
-          return new GridTile(
-            child: new Card(
-              color: Colors.white,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-
-                  new Container(
-                    child: new Text("Product Name "+product1.name +"\nProduct Price : "
-                        "€"+product1.price.toString()+"\nQuantity: "+product1.quantity.toString()),
+                        ),
+                        new Container(
+                            child: new OutlineButton(
+                                child: new Text("Add to Cart"),
+                                onPressed: null,
+                                shape: new RoundedRectangleBorder(
+                                    borderRadius: new BorderRadius.circular(
+                                        30.0))
+                            )
+                        )
+                      ],
+                    ),
 
                   ),
-                  new Container(
-                      child: new OutlineButton(
-                          child: new Text("Add to Cart"),
-                          onPressed: null,
-                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-                      )
-                  )
-                ],
+                );
+              },
               ),
-
-            ),
-          );
-        },
-        ),
+            );
+          }
+        }
       );
-    }
-*/
-
     }
   }
   @override
