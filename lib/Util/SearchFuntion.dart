@@ -49,22 +49,21 @@ class CustomSearchDelegate extends SearchDelegate {
         future: getD,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Container(child: Center(
-              child: new Text(
-                "no Items found empty",
-                textAlign: TextAlign.center,
-              ),
-            ));
-          }
-          else if (snapshot.data == null) {
-            return Container(child: Center(
-              child: new Text(
-                "Fecthing",
-                textAlign: TextAlign.center,
-              ),
-            )
+            return  AlertDialog(
+              title: new Text("Error Message"),
+              content: new Text("No Connection"),
+              actions: <Widget>[
+                // usually buttons at the bottom of the dialog
+                new FlatButton(
+                  child: new Text("Close"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
             );
-          } else {
+          }
+
             List<Product> products = snapshot.data;
             return new GridView.count(
               crossAxisCount: 2,
@@ -101,7 +100,7 @@ class CustomSearchDelegate extends SearchDelegate {
               },
               ),
             );
-          }
+
         }
       );
     }
