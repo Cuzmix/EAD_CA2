@@ -28,6 +28,9 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+    SendQuery s1 = new SendQuery();
+    var getD= s1.getData("https://ca2-app.azurewebsites.net/api/values/searchProduct/"+query);
+
     if (query.length < 1) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -40,11 +43,6 @@ class CustomSearchDelegate extends SearchDelegate {
         ],
       );
     } else {
-      SendQuery s1 = new SendQuery();
-      var getD= s1.getData("https://ca2-app.azurewebsites.net/api/values/searchProduct/"+query);
-
-    //  print(test.toString());
-
       return new FutureBuilder<List<Product>>(
         future: getD,
         builder: (context, snapshot) {
