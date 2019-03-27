@@ -62,8 +62,7 @@ class CustomSearchDelegate extends SearchDelegate {
                 ),
               ],
             );
-          }
-
+          }else {
             List<Product> products = snapshot.data;
             return new GridView.count(
               crossAxisCount: 2,
@@ -100,7 +99,7 @@ class CustomSearchDelegate extends SearchDelegate {
               },
               ),
             );
-
+          }
         }
       );
     }
