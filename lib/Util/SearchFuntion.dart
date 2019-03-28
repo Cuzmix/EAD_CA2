@@ -8,8 +8,8 @@ import 'package:shopping_app_v1/Util/Querybackend.dart';
 class CustomSearchDelegate extends SearchDelegate {
   SendQuery s1 = new SendQuery();
 
-  final prouctsSuggestions =["Cookies","Milk","Juice","Chocolate","Apple","IceCream","Tatyto","24 Pack Coke","White Chocolate"];
-  final recentSearchedProducts =["Milk","Apple","Tatyto","24 Pack Coke","White Chocolate"];
+  final prouctsSuggestions =["aookies","milk","juice","chocolate","apple","iceCream","tatyto","24 Pack Coke","white Chocolate"];
+  final recentSearchedProducts =["milk","apple","tatyto","24 Pack Coke","white Chocolate"];
 
 
   @override
@@ -34,7 +34,7 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    var returnedData= s1.getData("https://ca2-app.azurewebsites.net/api/values/searchProduct/"+query.toLowerCase());
+    var returnedData= s1.getData("https://ca2-app.azurewebsites.net/api/values/searchProduct/"+query);
 
     if (query.length < 1) {
       return Column(
@@ -94,6 +94,7 @@ class CustomSearchDelegate extends SearchDelegate {
   Widget buildSuggestions(BuildContext context) {
     // This method is called everytime the search term changes.
     // If you want to add search suggestions as the user enters their search term, this is the place to do that.
+
     final suggestionList = query.isEmpty?recentSearchedProducts:prouctsSuggestions.where((p)=>p.startsWith(query)).toList();
 
     return ListView.builder(itemBuilder: (context,i)=>ListTile(
