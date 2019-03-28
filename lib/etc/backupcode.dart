@@ -321,4 +321,51 @@ class DataSearch extends SearchDelegate<String>{
 
 }
 
+
+------------------------------------------------------
+import 'dart:async';
+import 'dart:convert'; //used to convert json response
+import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+import 'package:shopping_app_v1/Model/Product.dart';
+import 'package:flutter/src/material/list_tile.dart';
+import 'package:shopping_app_v1/Util/ErrorDialog.dart';
+
+class SendQuery extends StatefulWidget {
+  @override
+  State createState() => SendQueryState();
+}
+
+class SendQueryState extends State<SendQuery> {
+  @override
+  Widget build(BuildContext context) {
+    var products = const [];
+
+    Future<String> getData(String url) async {
+      try {
+        http.Response response = await http.get(
+          // Uri.encodeFull("http://10.0.2.2:5000/api/values/getProducts"),
+            Uri.encodeFull(url),
+            headers: {"Accept": "applicatin/json"});
+
+        print(response.body);
+
+        List collection = json.decode(response.body);
+        List<Product> _products = collection.map((json) => Product.fromJson(json)).toList();
+
+
+        this.setState(() {
+          products = _products;
+        });
+
+        return getData;
+      }catch(e){
+        ErrorDialog();
+        print (e);
+      }
+    }
+  }
+}
+
 */

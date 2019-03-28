@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:shopping_app_v1/Model/Product.dart';
 import 'package:flutter/src/material/list_tile.dart';
 import 'package:shopping_app_v1/Util/SearchFuntion.dart';
+import 'package:shopping_app_v1/Util/ErrorDialog.dart';
+import 'package:shopping_app_v1/Util/Querybackend.dart';
 
 class ProductList extends StatefulWidget {
   @override
@@ -15,36 +17,13 @@ class ProductList extends StatefulWidget {
 
 class ProductListState extends State<ProductList> {
 
-  void _showErrorDialog() {
-    // flutter defined function
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Error Message"),
-          content: new Text("No Connection"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   var products = const [];
 
-  Future<String> getData() async {
+  Future<String> getData(String url) async {
     try {
       http.Response response = await http.get(
          // Uri.encodeFull("http://10.0.2.2:5000/api/values/getProducts"),
-          Uri.encodeFull("https://ca2-app.azurewebsites.net/api/values/getProducts"),
+          Uri.encodeFull(url),
           headers: {"Accept": "applicatin/json"});
 
       print(response.body);
@@ -59,14 +38,14 @@ class ProductListState extends State<ProductList> {
 
     return "success!";
     }catch(e){
-      _showErrorDialog();
+      ErrorDialog();
       print (e);
     }
   }
 
   @override
   void initState() {
-    this.getData();
+    this.getData("https://ca2-app.azurewebsites.net/api/values/getProducts");
   }
 
 
@@ -120,7 +99,8 @@ class ProductListState extends State<ProductList> {
         ),
       ),
 
-        ));
+        )
+    );
   }
 }
 
