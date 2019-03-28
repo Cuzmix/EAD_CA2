@@ -19,15 +19,13 @@ class ProductListState extends State<ProductList> {
 
   var products = const [];
 
-  Future<String> getData(String url) async {
+
+
+  Future<String> getData() async {
     try {
-      http.Response response = await http.get(
-         // Uri.encodeFull("http://10.0.2.2:5000/api/values/getProducts"),
-          Uri.encodeFull(url),
-          headers: {"Accept": "applicatin/json"});
-
+      // Uri.encodeFull("http://10.0.2.2:5000/api/values/getProducts"),
+      http.Response response = await http.get(Uri.encodeFull("https://ca2-app.azurewebsites.net/api/values/getProducts"), headers: {"Accept": "applicatin/json"});
       print(response.body);
-
       List collection = json.decode(response.body);
       List<Product> _products = collection.map((json) => Product.fromJson(json)).toList();
 
@@ -43,11 +41,17 @@ class ProductListState extends State<ProductList> {
     }
   }
 
+//Expression body for refresh
+  Future<String> refresh() => getData();
+
   @override
   void initState() {
-    this.getData("https://ca2-app.azurewebsites.net/api/values/getProducts");
+    this.getData();
   }
 
+
+
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +71,8 @@ class ProductListState extends State<ProductList> {
         ],
       ),
 
-    body: new GridView.count(
+    body:RefreshIndicator(key: _refreshIndicatorKey,onRefresh: refresh,
+    child:new GridView.count(
         crossAxisCount: 2,
         children: new List<Widget>.generate(products.length, (i) {
           Product product1 = products[i];
@@ -99,7 +104,9 @@ class ProductListState extends State<ProductList> {
         ),
       ),
 
-        )
+
+    ),
+        ),
     );
   }
 }
