@@ -104,7 +104,7 @@ class CustomSearchDelegate extends SearchDelegate {
   }
   @override
   Widget buildSuggestions(BuildContext context) {
-    // This method is called everytime the search term changes.
+    // This method is called Everytime the search term changes.
     // If you want to add search suggestions as the user enters their search term, this is the place to do that.
     return Column();
   }
