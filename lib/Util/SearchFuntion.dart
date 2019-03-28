@@ -67,7 +67,6 @@ class CustomSearchDelegate extends SearchDelegate {
                               "\nProduct Price : "
                                   "€" + product1.price.toString() +
                               "\nQuantity: " + product1.quantity.toString()),
-
                         ),
                         new Container(
                             child: new OutlineButton(
@@ -95,11 +94,10 @@ class CustomSearchDelegate extends SearchDelegate {
     // This method is called everytime the search term changes.
     // If you want to add search suggestions as the user enters their search term, this is the place to do that.
 
-    final suggestionList = query.isEmpty?recentSearchedProducts:prouctsSuggestions.where((p)=>p.startsWith(query)).toList();
+    final suggestionList = query.isEmpty?recentSearchedProducts:prouctsSuggestions.where((p)=>p.contains(query)).toList();
 
     return ListView.builder(itemBuilder: (context,i)=>ListTile(
-      onTap: (){showResults(context);},
-      leading: Icon(Icons.search),
+      onTap: (){showResults(context);},leading: Icon(Icons.search),
 
       title: RichText(text: TextSpan(
         text: suggestionList[i].substring(0,query.length),
