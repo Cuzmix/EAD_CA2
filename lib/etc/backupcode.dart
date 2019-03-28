@@ -368,4 +368,23 @@ class SendQueryState extends State<SendQuery> {
   }
 }
 
+///////////////////////////////////////
+     var queryResults  =s1.getData("https://ca2-app.azurewebsites.net/api/values/getProducts/");
+     var ProductList =const [];
+
+    return new FutureBuilder<List<Product>>(future: queryResults, builder: (context, snapshot) {
+       List<Product> snapshotProductList = snapshot.data;
+       //ProductList = snapshotProductList;
+
+
+       return ListView.builder(itemBuilder: (context,i)=>ListTile(leading: Icon(Icons.search),
+
+         title: Text("test"),),
+         itemCount: ProductList.length ,
+       );
+
+    }
+     );
+
+
 */

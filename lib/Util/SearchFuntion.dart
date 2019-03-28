@@ -6,6 +6,12 @@ import 'package:shopping_app_v1/Util/Querybackend.dart';
 
 
 class CustomSearchDelegate extends SearchDelegate {
+  SendQuery s1 = new SendQuery();
+
+  final prouctsSuggestions =["Cookies","Milk","Juice","Chocolate","Apple","IceCream","Tatyto","24 Pack Coke","White Chocolate"];
+  final recentSearchedProducts =["Milk","Apple","Tatyto","24 Pack Coke","White Chocolate"];
+
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -28,8 +34,7 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    SendQuery s1 = new SendQuery();
-    var getD= s1.getData("https://ca2-app.azurewebsites.net/api/values/searchProduct/"+query);
+    var returnedData= s1.getData("https://ca2-app.azurewebsites.net/api/values/searchProduct/"+query.toLowerCase());
 
     if (query.length < 1) {
       return Column(
@@ -44,22 +49,9 @@ class CustomSearchDelegate extends SearchDelegate {
       );
     } else {
       return new FutureBuilder<List<Product>>(
-        future: getD,
-        builder: (context, snapshot) {
+        future: returnedData, builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return  AlertDialog(
-              title: new Text("Error Message"),
-              content: new Text("No Connection"),
-              actions: <Widget>[
-                // usually buttons at the bottom of the dialog
-                new FlatButton(
-                  child: new Text("Close"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
+            return  Container();
           }else {
             List<Product> products = snapshot.data;
             return new GridView.count(
@@ -71,10 +63,7 @@ class CustomSearchDelegate extends SearchDelegate {
                     color: Colors.white,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-
-                        new Container(
-                          child: new Text("Product Name " + product1.name +
+                      children: <Widget>[new Container(child: new Text("Product Name " + product1.name +
                               "\nProduct Price : "
                                   "€" + product1.price.toString() +
                               "\nQuantity: " + product1.quantity.toString()),
@@ -91,7 +80,6 @@ class CustomSearchDelegate extends SearchDelegate {
                         )
                       ],
                     ),
-
                   ),
                 );
               },
@@ -104,8 +92,27 @@ class CustomSearchDelegate extends SearchDelegate {
   }
   @override
   Widget buildSuggestions(BuildContext context) {
-    // This method is called Everytime the search term changes.
+    // This method is called everytime the search term changes.
     // If you want to add search suggestions as the user enters their search term, this is the place to do that.
-    return Column();
+    final suggestionList = query.isEmpty?recentSearchedProducts:prouctsSuggestions.where((p)=>p.startsWith(query)).toList();
+
+    return ListView.builder(itemBuilder: (context,i)=>ListTile(
+      onTap: (){showResults(context);},
+      leading: Icon(Icons.search),
+
+      title: RichText(text: TextSpan(
+        text: suggestionList[i].substring(0,query.length),
+      style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold),
+      children: [TextSpan(text: suggestionList[i].substring(query.length),
+      style: TextStyle(color: Colors.grey))])
+      ),),
+      itemCount: suggestionList.length ,
+    );
+
+
   }
 }
+
+
+
+
