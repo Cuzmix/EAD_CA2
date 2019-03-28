@@ -114,7 +114,8 @@ class ProductListState extends State<ProductList> {
 
                      ),
                    ],
-                 )  ),
+                 )
+                 ),
 
                     new Container(
                       child: new OutlineButton(
