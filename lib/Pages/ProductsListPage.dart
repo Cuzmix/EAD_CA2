@@ -18,6 +18,10 @@ class ProductList extends StatefulWidget {
 class ProductListState extends State<ProductList> {
 
   var products = const [];
+  Future<String> refresh() => getData();//Expression body for refresh
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+  int _itemCount = 0;
+
 
 
 
@@ -30,19 +34,31 @@ class ProductListState extends State<ProductList> {
       List<Product> _products = collection.map((json) => Product.fromJson(json)).toList();
 
 
-    this.setState(() {
-      products = _products;
-    });
+      this.setState(() {
+        products = _products;
+      });
 
-    return "success!";
+      return "success!";
     }catch(e){
       ErrorDialog();
       print (e);
     }
   }
 
-//Expression body for refresh
-  Future<String> refresh() => getData();
+
+  Future<String> createPost(int id,int decrementValue) async {
+    try {
+      await http.post(Uri.encodeFull("https://ca2-app.azurewebsites.net/api/values/purchaseItem/"+id.toString()+"/"+decrementValue.toString()), headers: {"Accept": "applicatin/json"});
+      return "success!";
+    }catch(e){
+      ErrorDialog();
+      print (e);
+    }
+  }
+
+
+
+
 
   @override
   void initState() {
@@ -51,10 +67,9 @@ class ProductListState extends State<ProductList> {
 
 
 
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
-
   @override
   Widget build(BuildContext context) {
+    TextEditingController _textValueController = new TextEditingController();
     return MaterialApp(
         //title: "Test1234",
         home: new Scaffold(
@@ -88,13 +103,29 @@ class ProductListState extends State<ProductList> {
                       "€"+product1.price.toString()+"\nQuantity: "+product1.quantity.toString()),
 
                 ),
+
+                 new Container(child:new Column(
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                   children: <Widget>[
+                     new TextField(
+                       controller: _textValueController,
+                       decoration: new InputDecoration(labelText: "Enter your number"),
+                       keyboardType: TextInputType.number,
+
+                     ),
+                   ],
+                 )  ),
+
                     new Container(
                       child: new OutlineButton(
-                            child: new Text("Add to Cart"),
-                            onPressed: null,
+                            child: new Text("Purchase"),
+                            onPressed: () => (createPost(product1.id,int.parse(_textValueController.text))),
                             shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
                         )
-                    )
+          ),
+
+
+
           ],
                 ),
 
