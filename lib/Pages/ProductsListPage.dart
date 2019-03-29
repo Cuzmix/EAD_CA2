@@ -56,10 +56,6 @@ class ProductListState extends State<ProductList> {
     }
   }
 
-
-
-
-
   @override
   void initState() {
     this.getData();
@@ -69,76 +65,82 @@ class ProductListState extends State<ProductList> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _textValueController = new TextEditingController();
+   List <TextEditingController> _textValueController = new  List(products.length);
+   for(var i = 0; i <products.length;i++ )
+     {
+       _textValueController[i] = new TextEditingController();
+     }
+
     return MaterialApp(
-        //title: "Test1234",
-        home: new Scaffold(
-      // this provides the bases such as white screen the nav bar etc..
-      appBar: new AppBar(
-        title: new Center(
-          child: new Text("Products Page",
-              style: new TextStyle(fontStyle: FontStyle.italic)),
+      //title: "Test1234",
+      home: new Scaffold(
+        // this provides the bases such as white screen the nav bar etc..
+        appBar: new AppBar(
+          title: new Center(
+            child: new Text("Products Page",
+                style: new TextStyle(fontStyle: FontStyle.italic)),
+          ),
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.search), onPressed: () {
+              showSearch(context: context, delegate: CustomSearchDelegate());
+            })
+          ],
         ),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: () {
-            showSearch(context: context, delegate: CustomSearchDelegate());
-          })
-        ],
-      ),
 
-    body:RefreshIndicator(key: _refreshIndicatorKey,onRefresh: refresh,
-    child:new GridView.count(
-        crossAxisCount: 2,
-        children: new List<Widget>.generate(products.length, (i) {
-          Product product1 = products[i];
-          return new GridTile(
-            child: new Card(
-                color: Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
+        body:RefreshIndicator(key: _refreshIndicatorKey,onRefresh: refresh,
+          child:new GridView.count(
+            crossAxisCount: 2,
+            children: new List<Widget>.generate(products.length, (i) {
+              Product product1 = products[i];
+              return new GridTile(
+                child: new Card(
+                  color: Colors.white,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
 
-                 new Container(
-                  child: new Text("Product Name "+product1.name +"\nProduct Price : "
-                      "€"+product1.price.toString()+"\nQuantity: "+product1.quantity.toString()),
+                      new Container(
+                        child: new Text("Product Name "+product1.name +"\nProduct Price : "
+                            "€"+product1.price.toString()+"\nQuantity: "+product1.quantity.toString()),
+
+                      ),
+
+                      new Container(child:new Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          new TextFormField(
+                            controller: _textValueController[i],
+                            decoration: new InputDecoration(labelText: "Enter your number"),
+                            keyboardType: TextInputType.number,
+                            textInputAction: TextInputAction.done,
+                            onFieldSubmitted: (term) =>  (createPost(product1.id,int.parse(_textValueController[i].text))),
+                          ),
+                        ],
+                      )
+                      ),
+
+                      new Container(
+                          child: new OutlineButton(
+                              child: new Text("Purchase"),
+                              onPressed: () => (createPost(product1.id,int.parse(_textValueController[i].text))),
+                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+                          )
+                      ),
+
+
+
+                    ],
+                  ),
 
                 ),
-
-                 new Container(child:new Column(
-                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                   children: <Widget>[
-                     new TextField(
-                       controller: _textValueController,
-                       decoration: new InputDecoration(labelText: "Enter your number"),
-                       keyboardType: TextInputType.number,
-
-                     ),
-                   ],
-                 )
-                 ),
-
-                    new Container(
-                      child: new OutlineButton(
-                            child: new Text("Purchase"),
-                            onPressed: () => (createPost(product1.id,int.parse(_textValueController.text))),
-                            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-                        )
+              );
+            },
+            ),
           ),
 
 
-
-          ],
-                ),
-
-            ),
-          );
-        },
         ),
       ),
-
-
-    ),
-        ),
     );
   }
 }

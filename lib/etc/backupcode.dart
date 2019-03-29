@@ -387,4 +387,38 @@ class SendQueryState extends State<SendQuery> {
      );
 
 
+//////////////////////frop down]#
+
+
+
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+
+  List<DropdownMenuItem<String>>listDrop =[];
+
+  String selectedValue =null;
+  void loadData(){
+    listDrop =[];
+    listDrop.add(new DropdownMenuItem(child: new Text('1'),value: '1',));
+    listDrop.add(new DropdownMenuItem(child: new Text('2'),value: '2',));
+    listDrop.add(new DropdownMenuItem(child: new Text('3'),value: '3',));
+    listDrop.add(new DropdownMenuItem(child: new Text('4'),value: '4',));
+    listDrop.add(new DropdownMenuItem(child: new Text('5'),value: '5',));
+  }
+
+
+                new Container(child: new Center(child: new DropdownButton(
+                      value: selectedValue ,
+                     items: listDrop,
+                     hint: new Text("Enter Num"),
+                     onChanged: (value){
+                        selectedValue = value;
+                        this.setState((){});
+                        },
+
+                 )
+                 )
+
+)
+
 */
+
