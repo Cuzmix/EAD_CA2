@@ -3,6 +3,7 @@ import 'package:shopping_app_v1/Pages/ProductsListPage.dart';
 import 'package:shopping_app_v1/Model/Product.dart';
 import 'package:flutter/src/widgets/basic.dart';
 import 'package:shopping_app_v1/Util/Querybackend.dart';
+import 'package:http/http.dart' as http;
 
 
 class CustomSearchDelegate extends SearchDelegate {
@@ -32,9 +33,21 @@ class CustomSearchDelegate extends SearchDelegate {
     );
   }
 
+  Future<String> createPost(int id,int decrementValue) async {
+    try {
+      await http.post(Uri.encodeFull("https://ca2-app.azurewebsites.net/api/values/purchaseItem/"+id.toString()+"/"+decrementValue.toString()), headers: {"Accept": "applicatin/json"});
+      return "success!";
+    }catch(e){
+      print (e);
+    }
+  }
+
+
   @override
   Widget buildResults(BuildContext context) {
     var returnedData= s1.getData("https://ca2-app.azurewebsites.net/api/values/searchProduct/"+query);
+    final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+
 
     if (query.length < 1) {
       return Column(
@@ -54,6 +67,13 @@ class CustomSearchDelegate extends SearchDelegate {
             return  Container();
           }else {
             List<Product> products = snapshot.data;
+            List <TextEditingController> _textValueController = new  List(products.length);
+            for(var i = 0; i <products.length;i++ )
+            {
+              _textValueController[i] = new TextEditingController();
+            }
+
+
             return new GridView.count(
               crossAxisCount: 2,
               children: new List<Widget>.generate(products.length, (i) {
@@ -63,20 +83,47 @@ class CustomSearchDelegate extends SearchDelegate {
                     color: Colors.white,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[new Container(child: new Text("Product Name " + product1.name +
-                              "\nProduct Price : "
+                      children: <Widget>[
+
+
+                        new Container(child: new Text("Product Name " + product1.name +"\nProduct Price : "
                                   "€" + product1.price.toString() +
                               "\nQuantity: " + product1.quantity.toString()),
                         ),
+
+
+                        new Container(child:new Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            new TextFormField(
+                              controller: _textValueController[i],
+                              decoration: new InputDecoration(labelText: "Enter your number"),
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.done,
+                              onFieldSubmitted: (term) =>  (createPost(product1.id,int.parse(_textValueController[i].text))),
+                            ),
+                          ],
+                        ),
+
+
+
+
+                        ),
                         new Container(
                             child: new OutlineButton(
-                                child: new Text("Add to Cart"),
-                                onPressed: null,
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(
-                                        30.0))
+                                child: new Text("Purchase"),
+                                onPressed: () {createPost(product1.id,int.parse(_textValueController[i].text));},
+                                shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
                             )
-                        )
+                        ),
+
+
+
+
+
+
+
+
                       ],
                     ),
                   ),
@@ -99,11 +146,9 @@ class CustomSearchDelegate extends SearchDelegate {
     return ListView.builder(itemBuilder: (context,i)=>ListTile(
       onTap: (){showResults(context);},leading: Icon(Icons.search),
 
-      title: RichText(text: TextSpan(
-        text: suggestionList[i].substring(0,query.length),
-      style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold),
-      children: [TextSpan(text: suggestionList[i].substring(query.length),
-      style: TextStyle(color: Colors.grey))])
+      title: RichText(text: TextSpan(text: suggestionList[i].substring(0,query.length),
+          style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold),
+          children: [TextSpan(text: suggestionList[i].substring(query.length), style: TextStyle(color: Colors.grey))])
       ),),
       itemCount: suggestionList.length ,
     );

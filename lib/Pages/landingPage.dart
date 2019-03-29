@@ -12,33 +12,20 @@ class ShopingAppPage extends StatefulWidget {
 class ShopingAppPageState extends State<ShopingAppPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      //title: "Test1234",
-        home: new Scaffold(
-          // this provides the bases such as white screen the nav bar etc..
-          appBar: new AppBar(
-            title: new Center(
-              child: new Text(
-                "Shopping App",
-                style: new TextStyle(fontStyle: FontStyle.italic),
-              ),
-            ),
-            actions: <Widget>[
-              new IconButton(
-                  icon: Icon(
-                    Icons.shopping_basket,
-                    color: Colors.white,
-                  ),
-                  onPressed: () => Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (BuildContext context) => new ProductList())))
-            ],
-          ),
-          body: new Center(
-            child: new RaisedButton(
-                child: new Text("Get data"),
-                onPressed: () => Navigator.of(context).push(new MaterialPageRoute(
-                    builder: (BuildContext context) => new ProductList()))),
-          ), //calling the page to load
-        ));
+    return new Material(
+      color: Colors.cyan,
+      child: new InkWell(
+        onTap: () => Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new ProductList())),
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Text("Lets Shop!", style: new TextStyle(color: Colors.white, fontSize: 50.0, fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),),
+            new Text("Tap to start!", style: new TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),)
+          ],
+        ),
+      ),
+    );
   }
 }
+
+
