@@ -35,8 +35,6 @@ class ProductListState extends State<ProductList> {
     }
 
 
-
-
     return MaterialApp(
         home: new Scaffold(
             // this provides the bases such as white screen the nav bar etc..
