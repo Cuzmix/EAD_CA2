@@ -9,8 +9,8 @@ import 'package:http/http.dart' as http;
 class CustomSearchDelegate extends SearchDelegate {
   SendQuery s1 = new SendQuery();
 
-  final prouctsSuggestions =["aookies","milk","juice","chocolate","apple","iceCream","tatyto","24 Pack Coke","white Chocolate"];
-  final recentSearchedProducts =["milk","apple","tatyto","24 Pack Coke","white Chocolate"];
+  final productsSuggestions =["cookies","milk","juice","chocolate","apple","iceCream","tatyto","24 Pack Coke","white Chocolate"];
+  final recentSearchedProducts =["milk","apple","cookies","juice"];
 
 
   @override
@@ -73,7 +73,6 @@ class CustomSearchDelegate extends SearchDelegate {
               _textValueController[i] = new TextEditingController();
             }
 
-
             return new GridView.count(
               crossAxisCount: 2,
               children: new List<Widget>.generate(products.length, (i) {
@@ -84,7 +83,6 @@ class CustomSearchDelegate extends SearchDelegate {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-
 
                         new Container(child: new Text("Product Name " + product1.name +"\nProduct Price : "
                                   "€" + product1.price.toString() +
@@ -104,10 +102,6 @@ class CustomSearchDelegate extends SearchDelegate {
                             ),
                           ],
                         ),
-
-
-
-
                         ),
                         /*
                         new Container(
@@ -117,9 +111,7 @@ class CustomSearchDelegate extends SearchDelegate {
                                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
                             )
                         ),
-
 */
-
                       ],
                     ),
                   ),
@@ -137,7 +129,7 @@ class CustomSearchDelegate extends SearchDelegate {
     // This method is called everytime the search term changes.
     // If you want to add search suggestions as the user enters their search term, this is the place to do that.
 
-    final suggestionList = query.isEmpty?recentSearchedProducts:prouctsSuggestions.where((p)=>p.contains(query)).toList();
+    final suggestionList = query.isEmpty?recentSearchedProducts:productsSuggestions.where((p)=>p.contains(query)).toList();
 
     return ListView.builder(itemBuilder: (context,i)=>ListTile(
       onTap: () => query = suggestionList[i].toString(),
