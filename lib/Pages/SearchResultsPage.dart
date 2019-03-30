@@ -6,7 +6,7 @@ import 'package:shopping_app_v1/Util/Querybackend.dart';
 import 'package:http/http.dart' as http;
 
 
-class CustomSearchDelegate extends SearchDelegate {
+class CustomSearch extends SearchDelegate {
   SendQuery s1 = new SendQuery();
 
   final productsSuggestions =["cookies","milk","juice","chocolate","apple","iceCream","tatyto","24 Pack Coke","white Chocolate"];
@@ -72,7 +72,6 @@ class CustomSearchDelegate extends SearchDelegate {
             {
               _textValueController[i] = new TextEditingController();
             }
-
             return new GridView.count(
               crossAxisCount: 2,
               children: new List<Widget>.generate(products.length, (i) {
@@ -84,8 +83,7 @@ class CustomSearchDelegate extends SearchDelegate {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
 
-                        new Container(child: new Text("Product Name " + product1.name +"\nProduct Price : "
-                                  "€" + product1.price.toString() +
+                        new Container(child: new Text("Product Name " + product1.name +"\nProduct Price : €" + product1.price.toString() +
                               "\nQuantity: " + product1.quantity.toString()),
                         ),
 

@@ -82,7 +82,7 @@ class ProductListState extends State<ProductList> {
           ),
           actions: <Widget>[
             IconButton(icon: Icon(Icons.search), onPressed: () {
-              showSearch(context: context, delegate: CustomSearchDelegate());
+              showSearch(context: context, delegate: CustomSearch());
             })
           ],
         ),

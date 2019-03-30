@@ -19,27 +19,25 @@ class ProductListState extends State<ProductList> {
   Widget build(BuildContext context) {
 
     SendQuery s1 = new SendQuery();
+
     var returnedData = s1.getData("https://ca2-app.azurewebsites.net/api/values/getProducts");
+
     Future<List<Product>> _refresh() => s1.getData("https://ca2-app.azurewebsites.net/api/values/getProducts");//Expression body for refresh
-    final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+  //  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
 
     Future<String> createPost(int id, int decrementValue) async {
-      try {
-        await http.post(
-            Uri.encodeFull(
-                "https://ca2-app.azurewebsites.net/api/values/purchaseItem/" + id.toString() + "/" + decrementValue.toString()), headers: {"Accept": "applicatin/json"});
-        return "success!";
+      try {await http.post(Uri.encodeFull("https://ca2-app.azurewebsites.net/api/values/purchaseItem/" + id.toString() + "/" + decrementValue.toString()), headers: {"Accept": "applicatin/json"});
       } catch (e) {
         print(e);
       }
+      return "success!";
     }
 
 
 
 
     return MaterialApp(
-        //title: "Test1234",
         home: new Scaffold(
             // this provides the bases such as white screen the nav bar etc..
             appBar: new AppBar(
@@ -49,10 +47,7 @@ class ProductListState extends State<ProductList> {
               ),
               actions: <Widget>[
                 IconButton(
-                    icon: Icon(Icons.search),
-                    onPressed: () {
-                      showSearch(
-                          context: context, delegate: CustomSearchDelegate());
+                    icon: Icon(Icons.search), onPressed: () {showSearch(context: context, delegate: CustomSearch());
                     })
               ],
             ),
@@ -81,6 +76,8 @@ class ProductListState extends State<ProductList> {
                                       new Container(
                                         child: new Text("Product Name " + product1.name + "\nProduct Price : €" + product1.price.toString() + "\nQuantity: " + product1.quantity.toString()),
                                       ),
+
+
                                       new Container(
                                         child: new Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
