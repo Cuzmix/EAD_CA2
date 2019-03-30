@@ -35,13 +35,15 @@ namespace StoreServer.API
         {
         
 
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "nameOfTitle", Version = "v1" });
             });
+
+            services.BuildServiceProvider().GetService<DataContext>().Database.Migrate();
 
 
         }

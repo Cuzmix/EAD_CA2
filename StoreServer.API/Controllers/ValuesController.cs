@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StoreServer.API.Data;
 using StoreServer.API.Models;
-using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Options;
-
+using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 namespace StoreServer.API.Controllers
 {
     [Route("api/[controller]")]
@@ -16,83 +16,81 @@ namespace StoreServer.API.Controllers
     public class ValuesController : ControllerBase
     {
         private readonly DataContext _context;
+        string connectionString = "Server=tcp:ead-sql-server.database.windows.net,1433;Initial Catalog=ead-sql-database;Persist Security Info=False;User ID=x00142153;Password=Qazwsx09;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         public ValuesController(DataContext context)
         {
             _context = context;
         }
 
-        [HttpGet("getProducts")] //http://localhost:5000/api/values/getProducts
+        [HttpGet("getProducts")]
         public async Task<IActionResult> GetProducts()
         {
-            var products = await _context.Products.ToListAsync();
-
-            return Ok(products);
-        }
-
-        [HttpGet("searchProduct")]
-        public async Task<IActionResult>searchProduct(String nameIn)
-        {
-
-           
-            var products = await _context.Products.ToListAsync();
-          var  results = products.Where(p => p.Name.ToLower() ==nameIn.ToLower());
-
-
-
-            if (results !=null)
+            try
             {
-                return Ok(results);
+                var products = await _context.Products.ToListAsync();
+                return Ok(products);
             }
-            else
+            catch (Exception e)
             {
-                return NotFound();
+                return BadRequest(e.Message);
             }
-            
+
         }
-
-
-        [HttpPost("purchaseBasket")] //http://localhost:5000/api/values/purchaseBasket/
-        public IActionResult PurchaseBasket([FromBody]List<Models.Product> basket)
+        [HttpGet("searchProduct/{nameIn}")]
+        public async Task<IActionResult> searchProduct(String nameIn)
         {
-            if (basket.Count == 0) {
-                return BadRequest();
-            }
-            string command;
-            foreach(Product item in basket) {
-            command = $"update Products set Quantity = Quantity -1 where Name = '{item.Name}'";   
-            using (SqliteConnection con = new SqliteConnection("Data Source=Shop.db")) {
-                con.Open();
-                using (SqliteCommand cmd = con.CreateCommand()){
-                    cmd.CommandText = command;
-                    cmd.ExecuteNonQuery();
+            try
+            {
+                var products = await _context.Products.ToListAsync();
+                var results = products.Where(p => p.Name.ToLower().Contains(nameIn));
+
+
+                if (results != null)
+                {
+                    return Ok(results);
                 }
-                con.Close();
+                else
+                {
+                    return NotFound();
+                }
             }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
+        }
+
+        [HttpPost("purchaseItem/{prodId}/{amt}")]
+        public async Task<IActionResult> PurchaseItem(int prodId, int amt)
+        {
+            try
+            {
+                Models.Product products = await _context.Products.FirstOrDefaultAsync(p => p.ID == prodId);
+                if (products.Quantity < amt)
+                {
+                    return BadRequest("Not enough in stock");
+                }
+                if (products.Quantity > 0)
+                {
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+
+                        SqlCommand command = new SqlCommand($"update [dbo].[Products] set [Quantity] = [Quantity] -{amt} where [Id] = {prodId}", connection);
+                        command.Connection.Open();
+                        command.ExecuteNonQuery();
+                        command.Connection.Close();
+                    }
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
             return Ok();
         }
-
-
-
-        /*
-[
-    {
-        "id": 1,
-        "name": "Milk",
-        "price": 1.5,
-        "quantity": 6
-    },
-    {
-        "id": 2,
-        "name": "Cookies",
-        "price": 2,
-        "quantity": 44
-    }
-]
-        
-        
-         */
-        
     }
 }
