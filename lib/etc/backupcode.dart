@@ -368,4 +368,57 @@ class SendQueryState extends State<SendQuery> {
   }
 }
 
+///////////////////////////////////////
+     var queryResults  =s1.getData("https://ca2-app.azurewebsites.net/api/values/getProducts/");
+     var ProductList =const [];
+
+    return new FutureBuilder<List<Product>>(future: queryResults, builder: (context, snapshot) {
+       List<Product> snapshotProductList = snapshot.data;
+       //ProductList = snapshotProductList;
+
+
+       return ListView.builder(itemBuilder: (context,i)=>ListTile(leading: Icon(Icons.search),
+
+         title: Text("test"),),
+         itemCount: ProductList.length ,
+       );
+
+    }
+     );
+
+
+//////////////////////frop down]#
+
+
+
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+
+  List<DropdownMenuItem<String>>listDrop =[];
+
+  String selectedValue =null;
+  void loadData(){
+    listDrop =[];
+    listDrop.add(new DropdownMenuItem(child: new Text('1'),value: '1',));
+    listDrop.add(new DropdownMenuItem(child: new Text('2'),value: '2',));
+    listDrop.add(new DropdownMenuItem(child: new Text('3'),value: '3',));
+    listDrop.add(new DropdownMenuItem(child: new Text('4'),value: '4',));
+    listDrop.add(new DropdownMenuItem(child: new Text('5'),value: '5',));
+  }
+
+
+                new Container(child: new Center(child: new DropdownButton(
+                      value: selectedValue ,
+                     items: listDrop,
+                     hint: new Text("Enter Num"),
+                     onChanged: (value){
+                        selectedValue = value;
+                        this.setState((){});
+                        },
+
+                 )
+                 )
+
+)
+
 */
+
