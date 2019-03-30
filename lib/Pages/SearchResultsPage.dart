@@ -97,7 +97,7 @@ class CustomSearchDelegate extends SearchDelegate {
                           children: <Widget>[
                             new TextFormField(
                               controller: _textValueController[i],
-                              decoration: new InputDecoration(labelText: "Enter your number"),
+                              decoration: new InputDecoration(labelText: "Enter your number",contentPadding: const EdgeInsets.all(20.0)),
                               keyboardType: TextInputType.number,
                               textInputAction: TextInputAction.done,
                               onFieldSubmitted: (term) =>  (createPost(product1.id,int.parse(_textValueController[i].text))),
@@ -109,6 +109,7 @@ class CustomSearchDelegate extends SearchDelegate {
 
 
                         ),
+                        /*
                         new Container(
                             child: new OutlineButton(
                                 child: new Text("Purchase"),
@@ -117,12 +118,7 @@ class CustomSearchDelegate extends SearchDelegate {
                             )
                         ),
 
-
-
-
-
-
-
+*/
 
                       ],
                     ),
@@ -144,13 +140,16 @@ class CustomSearchDelegate extends SearchDelegate {
     final suggestionList = query.isEmpty?recentSearchedProducts:prouctsSuggestions.where((p)=>p.contains(query)).toList();
 
     return ListView.builder(itemBuilder: (context,i)=>ListTile(
-      onTap: (){showResults(context);},leading: Icon(Icons.search),
+      onTap: () => query = suggestionList[i].toString(),
+      leading: Icon(Icons.search),
 
-      title: RichText(text: TextSpan(text: suggestionList[i].substring(0,query.length),
-          style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold),
-          children: [TextSpan(text: suggestionList[i].substring(query.length), style: TextStyle(color: Colors.grey))])
-      ),),
+
+      title: RichText(text: TextSpan(text: suggestionList[i].substring(0,query.length), style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold), children: [TextSpan(text: suggestionList[i].substring(query.length), style: TextStyle(color: Colors.grey))])
+      ),
+    ),
       itemCount: suggestionList.length ,
+
+
     );
 
 
