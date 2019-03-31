@@ -13,7 +13,9 @@ class ShoppingAppPageState extends State<ShoppingAppPage> {
   @override
   Widget build(BuildContext context) {
     return new Material(
+    child: new   Container (
       color: Colors.cyan,
+
       child: new InkWell(
         onTap: () => Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new ProductList())),
         child: new Column(
@@ -24,6 +26,7 @@ class ShoppingAppPageState extends State<ShoppingAppPage> {
           ],
         ),
       ),
+    ),
     );
   }
 }

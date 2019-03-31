@@ -2,9 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show SynchronousFuture;
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:intl_translation/extract_messages.dart';
-import 'package:intl_translation/generate_localized.dart';
-import 'package:shopping_app_v1/Pages/ProductsListPage.dart';
 import 'package:shopping_app_v1/Pages/landingPage.dart';
 
 

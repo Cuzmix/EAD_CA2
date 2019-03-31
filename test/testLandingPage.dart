@@ -1,21 +1,30 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:shopping_app_v1/main.dart';
 import 'package:shopping_app_v1/Pages/ProductsListPage.dart';
-import 'package:shopping_app_v1/Pages/landingPage.dart';
+import 'package:shopping_app_v1/Util/Localization.dart';
+
+
+Widget makeTestableWidget({Widget child}){
+  return MaterialApp(
+
+    home:ProductList(),
+  );
+}
 
 void main() {
   testWidgets('testingLandingPage', (WidgetTester tester) async {
-    await tester.pumpWidget(new ShoppingAppPage());
-    expect(find.widgetWithText(Scaffold, ('Shopping App')), findsOneWidget);
-    expect(find.text("Start Shopping"), findsOneWidget);
+
+    await tester.pumpWidget(new Demo());
+    expect(find.text("Lets Shop"),findsOneWidget);
+
+    expect(find.text("Lets Shops"),findsNothing);
+    expect(find.text("Tap to Starts"),findsNothing);
+    expect(find.byIcon(Icons.search),findsNothing);
+
+    expect(find.widgetWithText(Scaffold, ('testing')), findsNothing);
+    expect(find.text('testing'),findsNothing);
+     expect(find.text('1'), findsNothing);
 
   });
 }
+
