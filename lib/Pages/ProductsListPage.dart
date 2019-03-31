@@ -36,7 +36,6 @@ class ProductListState extends State<ProductList> {
 
     return MaterialApp(
         home: new Scaffold(
-
             // this provides the bases such as white screen the nav bar etc..
             appBar: new AppBar(
               title: new Center(
@@ -53,7 +52,9 @@ class ProductListState extends State<ProductList> {
                     future: returnedData,
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
-                        return Container();
+                        return new Center(
+                          child: new CircularProgressIndicator(),
+                        );
                       } else {
                         List<Product> products = snapshot.data;
                         List<TextEditingController> _textValueController = new List(products.length);
