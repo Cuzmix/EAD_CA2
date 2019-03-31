@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app_v1/Pages/ProductsListPage.dart';
 import 'package:shopping_app_v1/Util/Localization.dart';
 
-
-
 class ShoppingAppPage extends StatefulWidget {
   @override
   ShoppingAppPageState createState() => new ShoppingAppPageState();
@@ -15,7 +13,6 @@ class ShoppingAppPageState extends State<ShoppingAppPage> {
     return new Material(
     child: new   Container (
       color: Colors.cyan,
-
       child: new InkWell(
         onTap: () => Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new ProductList())),
         child: new Column(

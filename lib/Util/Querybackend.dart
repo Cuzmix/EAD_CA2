@@ -6,7 +6,6 @@ import 'package:shopping_app_v1/Util/ErrorDialog.dart';
 
 class SendQuery {
   var products = const [];
-
   Future<List<Product>> getData(String url) async {
     try {
       http.Response response = await http.get(Uri.encodeFull(url), headers: {"Accept": "applicatin/json"});

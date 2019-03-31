@@ -15,15 +15,13 @@ class ProductList extends StatefulWidget {
 class ProductListState extends State<ProductList> {
   @override
   Widget build(BuildContext context) {
-
     SendQuery s1 = new SendQuery();
     var productName = DemoLocalizations.of(context).productName;
     var productPrice = DemoLocalizations.of(context).productPrice;
     var quantity  = DemoLocalizations.of(context).quantity;
     var enterQuantity = DemoLocalizations.of(context).enterQuantity;
     var returnedData = s1.getData("https://ca2-app.azurewebsites.net/api/values/getProducts");
-    //Future<List<Product>> _refresh() => s1.getData("https://ca2-app.azurewebsites.net/api/values/getProducts");//Expression body for refresh
-  //  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+
 
 
     Future<String> createPost(int id, int decrementValue) async {

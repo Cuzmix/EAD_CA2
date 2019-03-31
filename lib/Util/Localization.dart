@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart' show SynchronousFuture;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shopping_app_v1/Pages/landingPage.dart';
 
-
 class DemoLocalizations {
   DemoLocalizations(this.locale);
 
