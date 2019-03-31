@@ -7,11 +7,10 @@ import 'package:http/http.dart' as http;
 
 
 class CustomSearch extends SearchDelegate {
-  SendQuery s1 = new SendQuery();
 
+  SendQuery s1 = new SendQuery();
   final productsSuggestions =["cookies","milk","juice","chocolate","apple","iceCream","tatyto","24 Pack Coke","white Chocolate"];
   final recentSearchedProducts =["milk","apple","cookies","juice"];
-
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -133,12 +132,10 @@ class CustomSearch extends SearchDelegate {
       onTap: () => query = suggestionList[i].toString(),
       leading: Icon(Icons.search),
 
-
       title: RichText(text: TextSpan(text: suggestionList[i].substring(0,query.length), style: TextStyle(color:Colors.black,fontWeight: FontWeight.bold), children: [TextSpan(text: suggestionList[i].substring(query.length), style: TextStyle(color: Colors.grey))])
       ),
     ),
       itemCount: suggestionList.length ,
-
 
     );
 

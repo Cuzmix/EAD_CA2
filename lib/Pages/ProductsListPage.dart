@@ -9,6 +9,12 @@ import 'package:shopping_app_v1/Pages/SearchResultsPage.dart';
 import 'package:shopping_app_v1/Util/ErrorDialog.dart';
 import 'package:shopping_app_v1/Util/Querybackend.dart';
 
+
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shopping_app_v1/locale/locales.dart';
+
+import 'package:shopping_app_v1/Util/Localization.dart';
+
 class ProductList extends StatefulWidget {
   @override
   State createState() => ProductListState();
@@ -19,9 +25,14 @@ class ProductListState extends State<ProductList> {
   Widget build(BuildContext context) {
 
     SendQuery s1 = new SendQuery();
+    var productName = DemoLocalizations.of(context).productName;
+    var productPrice = DemoLocalizations.of(context).productPrice;
+    var quantity  = DemoLocalizations.of(context).quantity;
+    var enterQuantity = DemoLocalizations.of(context).enterQuantity;
+
+
 
     var returnedData = s1.getData("https://ca2-app.azurewebsites.net/api/values/getProducts");
-
     Future<List<Product>> _refresh() => s1.getData("https://ca2-app.azurewebsites.net/api/values/getProducts");//Expression body for refresh
   //  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
@@ -37,11 +48,11 @@ class ProductListState extends State<ProductList> {
 
     return MaterialApp(
         home: new Scaffold(
+
             // this provides the bases such as white screen the nav bar etc..
             appBar: new AppBar(
               title: new Center(
-                child: new Text("Products Page",
-                    style: new TextStyle(fontStyle: FontStyle.italic)),
+                child: new Text(DemoLocalizations.of(context).title, style: new TextStyle(fontStyle: FontStyle.italic)),
               ),
               actions: <Widget>[
                 IconButton(
@@ -72,14 +83,14 @@ class ProductListState extends State<ProductList> {
                                   child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
                                       new Container(
-                                        child: new Text("Product Name " + product1.name + "\nProduct Price : €" + product1.price.toString() + "\nQuantity: " + product1.quantity.toString()),
+                                        child: new Text(productName.toString() +" "+ product1.name + "\n"+productPrice+" : €" + product1.price.toString() + "\n"+quantity+" : " + product1.quantity.toString()),
                                       ),
 
 
                                       new Container(
                                         child: new Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
-                                            new TextFormField(controller: _textValueController[i],  textAlign: TextAlign.center,decoration: new InputDecoration(labelText: "Enter your number",contentPadding: const EdgeInsets.all(20.0)),
+                                            new TextFormField(controller: _textValueController[i],  textAlign: TextAlign.center,decoration: new InputDecoration(labelText: enterQuantity,contentPadding: const EdgeInsets.all(20.0)),
                                               keyboardType: TextInputType.number,
                                               textInputAction: TextInputAction.done,
                                               onFieldSubmitted: (term) => (createPost(product1.id, int.parse(_textValueController[i].text))),

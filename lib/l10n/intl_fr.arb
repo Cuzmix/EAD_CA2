@@ -1,0 +1,15 @@
+{
+  "@@last_modified": "2019-03-30T20:02:46.055110",
+  "title": "Application de magasinage",
+  "@title": {
+    "description": "Title for the Shopping Application",
+    "type": "text",
+    "placeholders": {}
+  },
+  "button": "Obtenir le produit",
+  "@button": {
+    "description": "get Product button",
+    "type": "text",
+    "placeholders": {}
+  }
+}
