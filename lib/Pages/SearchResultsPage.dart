@@ -8,7 +8,7 @@ import 'package:shopping_app_v1/Util/Localization.dart';
 
 class CustomSearch extends SearchDelegate {
   SendQuery s1 = new SendQuery();
-  final productsSuggestions =["cookies","milk","juice","chocolate","apple","iceCream","tatyto","24 Pack Coke","white Chocolate"];
+  final productsSuggestions =["cookies","milk","juice","chocolate","apple","iceCream","tayto","24 Pack Coke","white chocolate"];
   final recentSearchedProducts =["milk","apple","cookies","juice"];
 
   @override
