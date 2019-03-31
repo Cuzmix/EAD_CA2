@@ -1,19 +1,11 @@
 import 'dart:async';
-import 'dart:convert'; //used to convert json response
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shopping_app_v1/Model/Product.dart';
-import 'package:flutter/src/material/list_tile.dart';
 import 'package:shopping_app_v1/Pages/SearchResultsPage.dart';
-import 'package:shopping_app_v1/Util/ErrorDialog.dart';
 import 'package:shopping_app_v1/Util/Querybackend.dart';
-
-
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:shopping_app_v1/locale/locales.dart';
-
 import 'package:shopping_app_v1/Util/Localization.dart';
+
 
 class ProductList extends StatefulWidget {
   @override
@@ -29,11 +21,8 @@ class ProductListState extends State<ProductList> {
     var productPrice = DemoLocalizations.of(context).productPrice;
     var quantity  = DemoLocalizations.of(context).quantity;
     var enterQuantity = DemoLocalizations.of(context).enterQuantity;
-
-
-
     var returnedData = s1.getData("https://ca2-app.azurewebsites.net/api/values/getProducts");
-    Future<List<Product>> _refresh() => s1.getData("https://ca2-app.azurewebsites.net/api/values/getProducts");//Expression body for refresh
+    //Future<List<Product>> _refresh() => s1.getData("https://ca2-app.azurewebsites.net/api/values/getProducts");//Expression body for refresh
   //  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
 
@@ -44,7 +33,6 @@ class ProductListState extends State<ProductList> {
       }
       return "success!";
     }
-
 
     return MaterialApp(
         home: new Scaffold(
@@ -86,7 +74,6 @@ class ProductListState extends State<ProductList> {
                                         child: new Text(productName.toString() +" "+ product1.name + "\n"+productPrice+" : €" + product1.price.toString() + "\n"+quantity+" : " + product1.quantity.toString()),
                                       ),
 
-
                                       new Container(
                                         child: new Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
@@ -98,14 +85,6 @@ class ProductListState extends State<ProductList> {
                                           ],
                                         ),
                                       ),
-
-                                      /*
-                                      new Container(
-                                          child: new OutlineButton(
-                                              child: new Text("Purchase"),
-                                              onPressed: () {createPost(product1.id, int.parse(_textValueController[i].text));
-                                              },
-                                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)))),*/
                                     ],
                                   ),
                                 ),

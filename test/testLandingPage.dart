@@ -13,7 +13,7 @@ import 'package:shopping_app_v1/Pages/landingPage.dart';
 
 void main() {
   testWidgets('testingLandingPage', (WidgetTester tester) async {
-    await tester.pumpWidget(new ShopingAppPage());
+    await tester.pumpWidget(new ShoppingAppPage());
     expect(find.widgetWithText(Scaffold, ('Shopping App')), findsOneWidget);
     expect(find.text("Start Shopping"), findsOneWidget);
 

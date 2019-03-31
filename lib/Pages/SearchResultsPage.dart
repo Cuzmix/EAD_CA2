@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app_v1/Pages/ProductsListPage.dart';
 import 'package:shopping_app_v1/Model/Product.dart';
 import 'package:flutter/src/widgets/basic.dart';
 import 'package:shopping_app_v1/Util/Querybackend.dart';
 import 'package:http/http.dart' as http;
+import 'package:shopping_app_v1/Util/Localization.dart';
 
 
 class CustomSearch extends SearchDelegate {
-
   SendQuery s1 = new SendQuery();
   final productsSuggestions =["cookies","milk","juice","chocolate","apple","iceCream","tatyto","24 Pack Coke","white Chocolate"];
   final recentSearchedProducts =["milk","apple","cookies","juice"];
@@ -44,9 +43,12 @@ class CustomSearch extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+    var productName = DemoLocalizations.of(context).productName;
+    var productPrice = DemoLocalizations.of(context).productPrice;
+    var quantity  = DemoLocalizations.of(context).quantity;
+    var enterQuantity = DemoLocalizations.of(context).enterQuantity;
     var returnedData= s1.getData("https://ca2-app.azurewebsites.net/api/values/searchProduct/"+query);
-    final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
-
+ //   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
     if (query.length < 1) {
       return Column(
@@ -82,33 +84,24 @@ class CustomSearch extends SearchDelegate {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
 
-                        new Container(child: new Text("Product Name " + product1.name +"\nProduct Price : €" + product1.price.toString() +
-                              "\nQuantity: " + product1.quantity.toString()),
+                        new Container(
+                          child: new Text(productName.toString() +" "+ product1.name + "\n"+productPrice+" : €" + product1.price.toString() + "\n"+quantity+" : " + product1.quantity.toString()),
                         ),
-
 
                         new Container(child:new Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             new TextFormField(
                               controller: _textValueController[i],
-                              decoration: new InputDecoration(labelText: "Enter your number",contentPadding: const EdgeInsets.all(20.0)),
+                              decoration: new InputDecoration(labelText: enterQuantity,contentPadding: const EdgeInsets.all(20.0)),
                               keyboardType: TextInputType.number,
                               textInputAction: TextInputAction.done,
                               onFieldSubmitted: (term) =>  (createPost(product1.id,int.parse(_textValueController[i].text))),
                             ),
                           ],
                         ),
+
                         ),
-                        /*
-                        new Container(
-                            child: new OutlineButton(
-                                child: new Text("Purchase"),
-                                onPressed: () {createPost(product1.id,int.parse(_textValueController[i].text));},
-                                shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-                            )
-                        ),
-*/
                       ],
                     ),
                   ),
@@ -124,10 +117,7 @@ class CustomSearch extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     // This method is called everytime the search term changes.
-    // If you want to add search suggestions as the user enters their search term, this is the place to do that.
-
     final suggestionList = query.isEmpty?recentSearchedProducts:productsSuggestions.where((p)=>p.contains(query)).toList();
-
     return ListView.builder(itemBuilder: (context,i)=>ListTile(
       onTap: () => query = suggestionList[i].toString(),
       leading: Icon(Icons.search),
@@ -136,7 +126,6 @@ class CustomSearch extends SearchDelegate {
       ),
     ),
       itemCount: suggestionList.length ,
-
     );
 
 

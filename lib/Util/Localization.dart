@@ -96,42 +96,13 @@ class DemoLocalizationsDelegate extends LocalizationsDelegate<DemoLocalizations>
   bool shouldReload(DemoLocalizationsDelegate old) => false;
 }
 
-
-
 class Demo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateTitle: (BuildContext context) => DemoLocalizations.of(context).title, localizationsDelegates: [const DemoLocalizationsDelegate(), GlobalMaterialLocalizations.delegate, GlobalWidgetsLocalizations.delegate,],
       supportedLocales: [const Locale('en', ''), const Locale('es', ''),],
-      home: ShopingAppPage(),
+      home: ShoppingAppPage(),
     );
   }
 }
-
-/*
-class DemoApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: new AppBar(
-        title: new Center(
-          child: new Text(DemoLocalizations.of(context).title, style: new TextStyle(fontStyle: FontStyle.italic),
-          ),
-        ),
-        actions: <Widget>[
-          new IconButton(icon: Icon(Icons.info, color: Colors.white,),
-              onPressed: (){})
-        ],
-      ),
-      body: new Center(
-        child: new RaisedButton(
-            child: new Text(DemoLocalizations.of(context).startShopping),
-            onPressed: () =>
-                Navigator.of(context).push(new MaterialPageRoute(
-                    builder: (BuildContext context) => new ProductList()))),
-      ),
-    );
-  }
-}
-*/

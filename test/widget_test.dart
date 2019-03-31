@@ -6,7 +6,7 @@ import 'package:shopping_app_v1/Pages/landingPage.dart';
 
 void main() {
   testWidgets('Test Start Widget', (WidgetTester tester) async {
-    await tester.pumpWidget(new ShopingAppPage());
+    await tester.pumpWidget(new ShoppingAppPage());
 
     // Verify that our counter starts at 0.
     //expect(find.widgetWithText(Scaffold, ('testing')), findsOneWidget);

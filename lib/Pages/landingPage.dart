@@ -1,23 +1,15 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:shopping_app_v1/Pages/ProductsListPage.dart';
-
-
-import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart' show SynchronousFuture;
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shopping_app_v1/Util/Localization.dart';
 
 
 
-class ShopingAppPage extends StatefulWidget {
+class ShoppingAppPage extends StatefulWidget {
   @override
-  ShopingAppPageState createState() => new ShopingAppPageState();
+  ShoppingAppPageState createState() => new ShoppingAppPageState();
 }
 
-class ShopingAppPageState extends State<ShopingAppPage> {
+class ShoppingAppPageState extends State<ShoppingAppPage> {
   @override
   Widget build(BuildContext context) {
     return new Material(
